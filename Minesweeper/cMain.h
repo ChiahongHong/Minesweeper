@@ -24,16 +24,17 @@ public:
 	~cMain();
 	void generateMines(int &x, int &y);
 	void onButtonClicked(wxCommandEvent &event);
+	void onButtonRightClicked(wxMouseEvent &event);
 	void expand(int x, int y);
 	void showMines();
 	void resetGame();
 	bool isWin();
 
 private:
-	const int mines = 15;
+	bool *mines = nullptr;
+	bool firstClick = true;
+	const int nums = 15;
 	const int width = 10;
 	const int height = 10;
 	wxButton **btn;
-	int *n = nullptr;
-	bool firstClick = true;
 };
