@@ -24,6 +24,7 @@ public:
 	~cMain();
 	void generateMines(int &x, int &y);
 	void onButtonClicked(wxCommandEvent &event);
+	void expand(int x, int y);
 	void showMines();
 	void resetGame();
 	bool isWin();

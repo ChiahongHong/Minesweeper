@@ -2,6 +2,8 @@
 
 Implement Minesweeper using C++ and wxWidgets. This program is based on and modified from [this video](https://www.youtube.com/watch?v=FOIbK4bJKS8).
 
+![](screenshot.jpg)
+
 If you want to compile this program in a non-Windows environment, you should simply remove `SetProcessDPIAware()` in `cApp.cpp`.
 
 ## Requirement

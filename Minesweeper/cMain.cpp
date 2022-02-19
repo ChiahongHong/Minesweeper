@@ -61,19 +61,7 @@ void cMain::onButtonClicked(wxCommandEvent& event)
 		wxMessageBox(wxT("Game Over!"), wxT("Minesweeper"));
 		resetGame();
 	} else {
-		int mine_count = 0;
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height) {
-					if (n[(y + j) * width + (x + i)] == -1) {
-						mine_count++;
-					}
-				}
-			}
-		}
-		if (mine_count > 0) {
-			btn[y * width + x]->SetLabel(std::to_string(mine_count));
-		}
+		expand(x, y);
 
 		if (isWin()) {
 			wxMessageBox(wxT("You Win!"), wxT("Minesweeper"));
@@ -82,6 +70,36 @@ void cMain::onButtonClicked(wxCommandEvent& event)
 	}
 
 	event.Skip();
+}
+
+void cMain::expand(int x, int y) {
+	int mine_count = 0;
+	for (int i = -1; i < 2; i++) {
+		for (int j = -1; j < 2; j++) {
+			if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height) {
+				if (n[(y + j) * width + (x + i)] == -1) {
+					mine_count++;
+				}
+			}
+		}
+	}
+
+	btn[y * width + x]->Enable(false);
+	
+	if (mine_count) {
+		btn[y * width + x]->SetLabel(std::to_string(mine_count));
+		return;
+	}
+	
+	for (int i = -1; i < 2; i++) {
+		for (int j = -1; j < 2; j++) {
+			if (x + i >= 0 && x + i < width && y + j >= 0 && y + j < height) {
+				if (btn[(y + j) * width + (x + i)]->IsEnabled()) {
+					expand(x + i, y + j);
+				}
+			}
+		}
+	}
 }
 
 void cMain::generateMines(int &x, int &y) {
