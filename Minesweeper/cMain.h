@@ -37,4 +37,5 @@ private:
 	const int width = 10;
 	const int height = 10;
 	wxButton **btn;
+	wxGridSizer *grid;
 };

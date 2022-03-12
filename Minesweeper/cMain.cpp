@@ -18,8 +18,8 @@
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Minesweeper", wxDefaultPosition, wxSize(800, 600))
 {
 	btn = new wxButton * [width * height];
+	grid = new wxGridSizer(width, height, 0, 0);
 	mines = new bool [width * height];
-	wxGridSizer *grid = new wxGridSizer(width, height, 0, 0);
 
 	wxFont font(22, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 
@@ -42,7 +42,10 @@ cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Minesweeper", wxDefaultPosition, wx
 
 cMain::~cMain()
 {
+	for (size_t i = 0; i < width * height; i++)
+		delete [] btn[i];
 	delete [] btn;
+	delete [] mines;
 }
 
 void cMain::onButtonClicked(wxCommandEvent& event)
